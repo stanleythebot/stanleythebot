@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <script src="https://www.gstatic.com/dialogflow-console/fast/messenger-cx/bootstrap.js?v=1"></script>
+        <img src="assets/desktop.png" class="background-img">
+
+        <df-messenger
+        df-cx="true"
+        location="us-central1"
+        chat-title="STANLEY Security Service Bot"
+        agent-id="da4bb92a-e693-404a-b045-28bad2dc15cd"
+        language-code="en"
+        chat-icon="assets/bot-icon.png"
+        ></df-messenger>
+        <script src="app.js"></script>
+
+
+        <div class="">
+            <span id="chatbot-initial-message" style="display:none">Hello, I am Stanley Digital Assistant, what can I do for you today?</span>
+            <span id="chatbot-initial-message2" style="display:none">Type a question or click on a popular topic below. To see these later, type <strong>"popular topics"</strong>.
+             <span id="chatbot-initial-message3" style="display:none">{"options": [
+                      {
+                        "text": "Request Service"
+                      },
+            {
+                        "text": "Upgrade System"
+                      },
+                      
+                      
+                      {
+                        "text": "System Test"
+                      },
+            {
+                        "text": "Edit Call List"
+                      }
+                    ],"type": "chips"}</span> 
+                
+            <script>
+            
+            function populateInitialMessages() {
+            //Andy French 6-1-21 Updated the welcome message to align with gov.bc.ca
+            //enabled message 2 and 3 so chips show
+                
+                // Load the message from the hidden page element
+                const initialMessageContainer = document.querySelector('#chatbot-initial-message');
+                
+                if(initialMessageContainer) {
+                    
+                    const initialMessageHtml = initialMessageContainer.innerHTML;
+                    
+                    if(initialMessageHtml.length > 0) {
+                        
+                        //Render the first message in the chatbot
+                        renderCustomMessage(initialMessageHtml);
+                        
+                        // Render the second message if it is populated
+                        const initialMessageHtml2 = document.querySelector('#chatbot-initial-message2').innerHTML;
+                        renderCustomMessage(initialMessageHtml2);					
+                        
+                        // Render the third message if it is populated
+                        const initialMessageHtml3 = document.querySelector('#chatbot-initial-message3').innerHTML;
+                        renderCustomMessage(initialMessageHtml3);
+                        
+                        // Process the messages so they display html, have click handlers etc
+                        processBotMessages();
+                        
+                    }
+                }
+            }
+            
+            
+            </script></div>
+    </body>
+</html>
