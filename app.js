@@ -22,11 +22,11 @@ window.addEventListener('dfMessengerLoaded', function (event) {
     // dfMessenger.renderCustomText('Hi, how can I help you today?');
     dfMessenger.showMinChat();
     populateInitialMessages();
-    console.log("here")
 
-	dfMessenger.addEventListener('df-user-input-entered', function(event) {
+	dfMessenger.addEventListener('df-request-sent', function(event) {
 		const dfMessenger = document.querySelector('df-messenger');		
 
+		console.log("here")
 		
 		const userMessageList = dfMessenger.shadowRoot.querySelector('df-messenger-chat')
 
