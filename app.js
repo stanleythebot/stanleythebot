@@ -36,7 +36,7 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 
 			
 		var style = document.createElement( 'style' )
-		style.innerHTML = "div.user-message { font-family: 'Montserrat' !important}"
+		style.innerHTML = "div.user-message { font-family: 'Montserrat' !important; border-radius: 12px 12px 0px 12px !important}"
 		userMessageList.appendChild(style);
 	});
 
@@ -131,7 +131,7 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 
 			
 		var style = document.createElement( 'style' )
-		style.innerHTML = "div.bot-message { font-family: 'Montserrat' !important}"
+		style.innerHTML = "div.bot-message { font-family: 'Montserrat' !important; border-radius: 12px 12px 12px 0px !important }"
 		botMessageList.appendChild(style);
 
 		botMessages.forEach(function(message) {
@@ -159,7 +159,7 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 			const chipWrapper = dfchips.shadowRoot.querySelector('.df-chips-wrapper');
 
 			var styleChip = document.createElement( 'style' )
-			styleChip.innerHTML = "a { font-family: 'Montserrat' !important; font-size: 12px !important}"
+			styleChip.innerHTML = "a { font-family: 'Montserrat' !important; font-size: 12px !important; border-radius: 10px !important}"
 			chipWrapper.appendChild(styleChip);
 		});
 		
