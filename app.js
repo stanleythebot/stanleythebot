@@ -56,13 +56,22 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 			processTextResponses();
 
 		
+			//Process suggestion chip responses
+
+			processSuggestionChipResponses();
+
 
 			// Process card responses
 
 			processCardResponses();
 
 			
+			// Process MultiCard responses
+			processMutliCardResponses();
 
+
+			//Process List responses
+			processListResponses();
 			// Add other response types here as required
 
 			// ...
@@ -103,7 +112,7 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 
 	}
 
-	function processTextResponses() {
+	async function processTextResponses() {
 
 
 		const dfMessenger = document.querySelector('df-messenger');		
@@ -125,16 +134,6 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 		style.innerHTML = "div.bot-message { font-family: 'Montserrat' !important}"
 		botMessageList.appendChild(style);
 
-
-		const dfChips = botMessageList.querySelector('df-chips');
-		console.log(dfChips)
-		const chipWrapper = dfChips.shadowRoot.querySelector('.df-chips-wrapper');
-
-		var styleChip = document.createElement( 'style' )
-		styleChip.innerHTML = "a { font-family: 'Montserrat' !important; font-size: 12px !important}"
-		chipWrapper.appendChild(styleChip);
-
-
 		botMessages.forEach(function(message) {
 
 			processMessageHtml(message);
@@ -143,8 +142,31 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 
 	}
 
-	function processCardResponses() {
+	async function processSuggestionChipResponses() {
 
+		const dfMessenger = document.querySelector('df-messenger');		
+
+		
+		const botMessageList = dfMessenger.shadowRoot.querySelector('df-messenger-chat')
+
+			.shadowRoot.querySelector('df-message-list')
+
+			.shadowRoot.querySelector('#messageList');
+
+		const dfChipsContainer = botMessageList.querySelectorAll('df-chips');
+
+		dfChipsContainer.forEach(dfchips => {
+			const chipWrapper = dfchips.shadowRoot.querySelector('.df-chips-wrapper');
+
+			var styleChip = document.createElement( 'style' )
+			styleChip.innerHTML = "a { font-family: 'Montserrat' !important; font-size: 12px !important}"
+			chipWrapper.appendChild(styleChip);
+		});
+		
+
+	}
+
+	async function processCardResponses() {
 
 
 		const dfMessenger = document.querySelector('df-messenger');		
@@ -160,23 +182,80 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 			.querySelectorAll('df-card');
 
 			
+		try {
+			botCards.forEach(function(card) {			
+
+				const descriptionContainer = card.shadowRoot.querySelector('df-description')
+	
+				descriptionLines = 	descriptionContainer.shadowRoot.querySelector('#descriptionWrapper');
+				descriptionLines.classList.add('custom-message')
+	
+				
+				var style = document.createElement( 'style' )
+				style.innerHTML = " .custom-message { font-family: 'Montserrat' !important;}"
+				descriptionContainer.shadowRoot.prepend(style)
+			});	
+		} catch (error) {
+			console.log(error)
+		}
+
+	}
+
+	async function processMutliCardResponses() {
+		const dfMessenger = document.querySelector('df-messenger');		
+
+		
+
+		const botCards = dfMessenger.shadowRoot.querySelector('df-messenger-chat')
+
+			.shadowRoot.querySelector('df-message-list')
+
+			.shadowRoot.querySelector('#messageList')
+
+			.querySelectorAll('df-card');
+
 
 		botCards.forEach(function(card) {			
 
-			const descriptionLines = card.shadowRoot.querySelector('df-description')
+			const dfTitles = card.shadowRoot.querySelectorAll('df-title')
 
-				.shadowRoot.querySelectorAll('.description-line');
+			dfTitles.forEach(dfTitle => {
+				descriptionLines = 	dfTitle.shadowRoot.querySelector('.title-card-elements');
+				descriptionLines.classList.add('custom-message')
 
-			
+				
+				var style = document.createElement( 'style' )
+				style.innerHTML = " .custom-message { font-family: 'Montserrat' !important;}"
+				dfTitle.shadowRoot.prepend(style)
+			});
+		})	
+	}
 
-			descriptionLines.forEach(function(desc) {
+	async function processListResponses() {
 
-				processMessageHtml(desc);
+		const dfMessenger = document.querySelector('df-messenger');		
 
-			})	
 
-		})		
+		const botCards = dfMessenger.shadowRoot.querySelector('df-messenger-chat')
 
+			.shadowRoot.querySelector('df-message-list')
+
+			.shadowRoot.querySelector('#messageList')
+
+			.querySelectorAll('df-card');
+
+		botCards.forEach(botcard => {
+			const listElements = botcard.shadowRoot.querySelectorAll("df-list-element");
+			listElements.forEach(listElement => {
+				descriptionLines = 	listElement.shadowRoot.querySelector('.title-card-elements');
+				descriptionLines.classList.add('custom-message')
+
+				
+				var style = document.createElement( 'style' )
+				style.innerHTML = " .custom-message { font-family: 'Montserrat' !important; padding: 8px 16px !important; font-size: 13px !important}"
+				listElement.shadowRoot.prepend(style)
+			})
+		});
 	}
 
 	function processMessageHtml(element) {
