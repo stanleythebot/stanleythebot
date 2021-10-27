@@ -7,7 +7,6 @@ window.addEventListener('dfMessengerLoaded', function (event) {
     const dfMessengerChat = dfMessenger.shadowRoot.querySelector('df-messenger-chat')
     dfMessengerChat.shadowRoot.appendChild(style);
 
-
 	var titleContainer = dfMessengerChat.shadowRoot.querySelector('df-messenger-titlebar')
 	var titleStyle = document.createElement('style')
 	titleStyle.innerHTML = "div.title-wrapper {font-family: 'Montserrat' !important}"
@@ -18,6 +17,14 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 	var inputStyle = document.createElement('style')
 	inputStyle.innerHTML = "input {font-family: 'Montserrat' !important}"
 	inputContainer.appendChild(inputStyle);
+
+	const messageListContainer = dfMessenger.shadowRoot.querySelector('df-messenger-chat')
+			.shadowRoot.querySelector('df-message-list')
+	const messageList = messageListContainer.shadowRoot.querySelector('#messageList');
+	var containerStyle = document.createElement('style')
+	containerStyle.innerHTML = "/* width */ ::-webkit-scrollbar {width: 10px;}	/* Track */	::-webkit-scrollbar-track {background: #f1f1f100; }	/* Handle */::-webkit-scrollbar-thumb {  background: #aaa; border-right: 4px solid #fafafa }	/* Handle on hover */::-webkit-scrollbar-thumb:hover { background: #888; }"
+	messageListContainer.shadowRoot.prepend(containerStyle)
+
 
     // dfMessenger.renderCustomText('Hi, how can I help you today?');
     dfMessenger.showMinChat();
@@ -36,7 +43,8 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 
 			
 		var style = document.createElement( 'style' )
-		style.innerHTML = "div.user-message { font-family: 'Montserrat' !important; border-radius: 12px 12px 0px 12px !important}"
+		style.innerHTML = "div.user-message { font-family: 'Montserrat' !important; border-radius: 10px !important; color: white !important;}"
+		// style.innerHTML = "div.user-message { font-family: 'Montserrat' !important; border-radius: 12px 12px 0px 12px !important; color: white !important;}"
 		userMessageList.appendChild(style);
 	});
 
@@ -131,7 +139,8 @@ window.addEventListener('dfMessengerLoaded', function (event) {
 
 			
 		var style = document.createElement( 'style' )
-		style.innerHTML = "div.bot-message { font-family: 'Montserrat' !important; border-radius: 12px 12px 12px 0px !important }"
+		style.innerHTML = "div.bot-message { font-family: 'Montserrat' !important; border-radius: 10px !important }"
+		// style.innerHTML = "div.bot-message { font-family: 'Montserrat' !important; border-radius: 12px 12px 12px 0px !important }"
 		botMessageList.appendChild(style);
 
 		botMessages.forEach(function(message) {
