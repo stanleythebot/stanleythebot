@@ -20,3 +20,7 @@ div.chat-wrapper[opened="true"] {
 .background-img {
     width: 100%;
 }
+
+.custom-message{
+    font-family: 'Montserrat' !important;
+}
